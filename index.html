@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ServeDeck Upload</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #ffffff;
+      overflow: hidden;
+
+      /* Flexbox for centering the upload box */
+      display: flex;
+      justify-content: center; /* center horizontally */
+      align-items: center;     /* center vertically */
+    }
+
+
+
+    /* Side Bars */
+    .side-bar {
+      width: 30px;
+      height: 90px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .side-bar div:nth-child(1),
+    .side-bar div:nth-child(3) {
+      background: #f26522;
+      height: 30px;
+    }
+
+    .side-bar div:nth-child(2) {
+      background: #236a39;
+      height: 12px;
+      margin: 2px 0;
+    }
+
+    
+
+    /* Upload box styling */
+    .upload-box {
+      margin: 0;  /* remove margin */
+      padding: 15px 20px;
+      max-width: 450px;
+      width: 100%;
+      text-align: center;
+      border: 3px solid #e42c2c;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgb(0 0 0 / 0.12);
+      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.85);
+    }
+
+    .upload-box h2 {
+      color: #e42c2c;
+      font-size: 1.8rem;
+      margin-bottom: 25px;
+    }
+
+    input[type="file"] {
+      background: rgba(255, 255, 255, 0.25);
+      border: none;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 14px;
+      color: #222;
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    input[type="file"]::file-selector-button {
+      cursor: pointer;
+      background: #ff3c00;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      color: white;
+      font-weight: 600;
+    }
+
+    button {
+      margin-top: 10px;
+      background: linear-gradient(90deg, #ff7300, #ff3300);
+      border: none;
+      padding: 14px 30px;
+      border-radius: 12px;
+      color: white;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 15px rgba(240, 70, 58, 0.6);
+      width: 100%;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(90deg, #ff3c00, #ff1100);
+      box-shadow: 0 10px 20px rgba(245, 150, 144, 0.8);
+      transform: translateY(-2px);
+    }
+
+    #message {
+      margin-top: 25px;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #00aa88;
+      text-shadow: 0 0 8px #00ffab88;
+    }
+     .sidebar-menu-container {
+                position: fixed;
+                top: 40px;
+                right: 30px;
+                z-index: 10000;
+                font-family: Arial, sans-serif;
+                }
+
+                /* Hamburger icon styling */
+                .sidebar-icon {
+                width: 35px;
+                height: 30px;
+                cursor: pointer;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                }
+
+                .sidebar-icon span {
+                display: block;
+                height: 5px;
+                background-color: #f26522; /* Your red/orange */
+                border-radius: 3px;
+                }
+
+                /* The dropdown menu (hidden by default) */
+                .sidebar-menu {
+                display: none;
+                position: absolute;
+                top: 40px;  /* Below the hamburger icon */
+                right: 0;
+                background-color: #1e1e1e;
+                border-radius: 8px;
+                box-shadow: 0 0 10px #f26522aa;
+                min-width: 160px;
+                overflow: hidden;
+                z-index: 10001;
+                flex-direction: column;
+                }
+
+                /* Show menu when active */
+                .sidebar-menu.show {
+                display: flex;
+                flex-direction: column;
+                }
+
+                /* Menu links styling */
+                .sidebar-menu a {
+                padding: 12px 16px;
+                color: white;
+                text-decoration: none;
+                border-bottom: 1px solid #f26522aa;
+                transition: background-color 0.3s ease;
+                }
+
+                .sidebar-menu a:last-child {
+                border-bottom: none;
+                }
+
+                .sidebar-menu a:hover {
+                background-color: #f26522;
+                color: black;
+                }
+  </style>
+</head>
+<body>
+
+  <!-- Sidebar menu container -->
+<div class="sidebar-menu-container">
+  <a href="javascript:void(0)" class="sidebar-icon" title="Menu" id="sidebarToggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </a>
+  
+  <div class="sidebar-menu" id="sidebarMenu">
+    <a href="viewdata.php">View Data</a>
+  </div>
+</div>
+
+  
+
+  <!-- Centered upload box -->
+  <div class="container">
+    <img src="KK_LOGO.png" alt="KK Logo" style="height: 100px; justify-content:center; margin-bottom: 20px; margin-left: 40px;" />
+    <div class="upload-box">
+      <h2>Upload ServeDeck Excel File</h2>
+      <form action="import.php" method="post" enctype="multipart/form-data">
+        <input type="file" name="excelFile" accept=".xlsx" required />
+        <button type="submit">Upload & Import</button>
+      </form>
+      <div style="margin-top: 20px;">
+          <a href="viewdata.php" style="text-decoration: underline; color: #cc0000;">
+            No Excel file? Browse data instead.
+          </a>
+        </div>
+
+      <div id="message"></div>
+    </div>
+  </div>
+
+<script>
+  const sidebarToggle = document.getElementById('sidebarToggle');
+  const sidebarMenu = document.getElementById('sidebarMenu');
+
+  sidebarToggle.addEventListener('click', () => {
+    sidebarMenu.classList.toggle('show');
+  });
+
+  // Close menu if click outside
+  document.addEventListener('click', (e) => {
+    if (!sidebarMenu.contains(e.target) && !sidebarToggle.contains(e.target)) {
+      sidebarMenu.classList.remove('show');
+    }
+  });
+</script>
+</body>
+</html>
